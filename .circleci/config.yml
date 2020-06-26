@@ -66,15 +66,15 @@ jobs:
             echo 'export AWS_ECR_ACCOUNT_URL="${ACCOUNT_ID_DEV}.dkr.ecr.us-east-1.amazonaws.com"' >> $BASH_ENV
       - attach_workspace:
           at: /tmp/workspace
-      - aws-ecr/build-and-push-image:
-          checkout: false
-          #TODO: UPDATE
-          repo: UPDATEME
-          setup-remote-docker: true
-          tag: $CIRCLE_SHA1
-          path: /tmp/workspace/app_prod
-          dockerfile: /tmp/workspace/app_prod/Dockerfile
-          extra-build-args: --build-arg APOLLO_KEY=${APOLLO_KEY}
+      # - aws-ecr/build-and-push-image:
+      #     checkout: false
+      #     #TODO: UPDATE
+      #     repo: UPDATEME
+      #     setup-remote-docker: true
+      #     tag: $CIRCLE_SHA1
+      #     path: /tmp/workspace/app_prod
+      #     dockerfile: /tmp/workspace/app_prod/Dockerfile
+      #     extra-build-args: --build-arg APOLLO_KEY=${APOLLO_KEY}
 
 workflows:
   all:
@@ -82,46 +82,46 @@ workflows:
       - circleci-orbs/node_mocha_ts_test:
           <<: *not_main
           name: test
-      - circleci-orbs/setup_deploy_params:
-          <<: *only_main
-          context: pocket
-          env: Dev
-          #TODO: UPDATE
-          service_name: UPDATEME
+      # - circleci-orbs/setup_deploy_params:
+      #     <<: *only_main
+      #     context: pocket
+      #     env: Dev
+      #     #TODO: UPDATE
+      #     service_name: UPDATEME
       - build
       - dockerbuild:
           context: pocket
           requires:
             - build
-      - circleci-orbs/terraform:
-          <<: *only_main
-          context: pocket
-          name: deploy_terraform
-          deploy: true
-          copy_workspace: true
-          terraform_workspace: Dev
-          terraform_modules_dir: .aws
-          global_vars_file: global.dev.tfvars
-          state_file: terraform-plan.plan
-          requires:
-            - circleci-orbs/setup_deploy_params
-            - dockerbuild
-      - circleci-orbs/terraform:
-          <<: *not_main
-          context: pocket
-          name: check_terraform
-          deploy: false
-          copy_workspace: true
-          terraform_workspace: Dev
-          terraform_modules_dir: .aws
-          global_vars_file: global.dev.tfvars
-          state_file: terraform-plan.plan
-          requires:
-            - build
-      - circleci-orbs/sentry_release_notification:
-          <<: *only_main
-          context: pocket
-          sentry_project_name: fUPDATEME
-          repository_name: UPDATEME
-          requires:
-            - deploy_terraform
+      # - circleci-orbs/terraform:
+      #     <<: *only_main
+      #     context: pocket
+      #     name: deploy_terraform
+      #     deploy: true
+      #     copy_workspace: true
+      #     terraform_workspace: Dev
+      #     terraform_modules_dir: .aws
+      #     global_vars_file: global.dev.tfvars
+      #     state_file: terraform-plan.plan
+      #     requires:
+      #       - circleci-orbs/setup_deploy_params
+      #       - dockerbuild
+      # - circleci-orbs/terraform:
+      #     <<: *not_main
+      #     context: pocket
+      #     name: check_terraform
+      #     deploy: false
+      #     copy_workspace: true
+      #     terraform_workspace: Dev
+      #     terraform_modules_dir: .aws
+      #     global_vars_file: global.dev.tfvars
+      #     state_file: terraform-plan.plan
+      #     requires:
+      #       - build
+      # - circleci-orbs/sentry_release_notification:
+      #     <<: *only_main
+      #     context: pocket
+      #     sentry_project_name: fUPDATEME
+      #     repository_name: UPDATEME
+      #     requires:
+      #       - deploy_terraform

@@ -9,7 +9,9 @@
     "start": "node dist/main.js",
     "start:dev": "NODE_ENV=development npm run build && NODE_ENV=development npm run watch",
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
-    "test-ci": "npm test -- --reporter mocha-junit-reporter"
+    "test-ci": "npm test -- --reporter mocha-junit-reporter",
+    "lint-check": "eslint --fix-dry-run src/**/*.ts",
+    "lint-fix": "eslint --fix src/**/*.ts"
   },
   "repository": {
     "type": "git",
@@ -39,6 +41,7 @@
     "nock": "^12.0.3",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.4",
+    "standard": "^14.3.4",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.5",
     "typescript-eslint": "0.0.1-alpha.0"

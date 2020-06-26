@@ -1,8 +1,8 @@
-## Goal
+# Goal
 
 Insert purpose of pull request
 
-## Todos:
+## Todos
 - [ ] Outstanding todo
 - [x] Completed todo
 
@@ -30,5 +30,5 @@ Documentation here:
 
 Tickets:
 * Link to JIRA tickets
- 
+
 ## Implementation Decisions
