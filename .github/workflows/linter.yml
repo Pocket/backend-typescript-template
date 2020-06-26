@@ -47,4 +47,4 @@
             env:
               DEFAULT_BRANCH: main
               VALIDATE_ALL_CODEBASE: true
-    
+              TYPESCRIPT_ES_CONFIG_FILE: .eslintrc.js
