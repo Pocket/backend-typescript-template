@@ -43,8 +43,9 @@
           # Run Linter against code base #
           ################################
           - name: Lint Code Base
-            uses: docker://github/super-linter:v2.1.0
+            uses: docker://github/super-linter:v2.2.2
             env:
               DEFAULT_BRANCH: main
               VALIDATE_ALL_CODEBASE: true
               TYPESCRIPT_ES_CONFIG_FILE: .eslintrc.js
+              VALIDATE_TYPESCRIPT_STANDARD: false
