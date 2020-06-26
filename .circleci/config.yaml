@@ -1,0 +1,127 @@
+version: 2.1
+
+orbs:
+  circleci-orbs: pocket/circleci-orbs@0.1.4
+  aws-ecr: circleci/aws-ecr@6.9.1
+
+not_main: &not_main
+  filters:
+    branches:
+      ignore:
+        - main
+
+only_main: &only_main
+  filters:
+    branches:
+      only:
+        - main
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:14
+    steps:
+      - checkout
+      # Define the working directory for this job
+      - attach_workspace:
+          at: /tmp/workspace
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            # If this gets our of sync, you can increment the version (vX).  Just be
+            # sure to match that version when saving the cache as well.
+            - node-v3-{{ checksum "package-lock.json" }}
+            - node-v3-
+      - run:
+          name: install node modules
+          command: npm install
+      # Save the cache to avoid extraneous downloads
+      - save_cache:
+          key: node-v3-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+      # Copy built files to app_prod folder
+      - run:
+          name:
+          command: |
+            export NODE_ENV=production
+            npm run build
+      - run:
+          name: Setup Files To Build
+          command: |
+            mkdir -p /tmp/workspace/app_prod
+            cp -r ./src ./node_modules package*.json Dockerfile tsconfig.json ./dist /tmp/workspace/app_prod
+      # Persist built files to workspace
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - app_prod
+  dockerbuild:
+    docker:
+      - image: pocket/ops-cli:v0.0.5
+    steps:
+      - run:
+          name: Setup common environment variables
+          command: |
+            echo 'export AWS_ECR_ACCOUNT_URL="${ACCOUNT_ID_DEV}.dkr.ecr.us-east-1.amazonaws.com"' >> $BASH_ENV
+      - attach_workspace:
+          at: /tmp/workspace
+      - aws-ecr/build-and-push-image:
+          checkout: false
+          #TODO: UPDATE
+          repo: UPDATEME
+          setup-remote-docker: true
+          tag: $CIRCLE_SHA1
+          path: /tmp/workspace/app_prod
+          dockerfile: /tmp/workspace/app_prod/Dockerfile
+          extra-build-args: --build-arg APOLLO_KEY=${APOLLO_KEY}
+
+workflows:
+  all:
+    jobs:
+      - circleci-orbs/node_mocha_ts_test:
+          <<: *not_main
+          name: test
+      - circleci-orbs/setup_deploy_params:
+          <<: *only_main
+          context: pocket
+          env: Dev
+          #TODO: UPDATE
+          service_name: UPDATEME
+      - build
+      - dockerbuild:
+          context: pocket
+          requires:
+            - build
+      - circleci-orbs/terraform:
+          <<: *only_main
+          context: pocket
+          name: deploy_terraform
+          deploy: true
+          copy_workspace: true
+          terraform_workspace: Dev
+          terraform_modules_dir: .aws
+          global_vars_file: global.dev.tfvars
+          state_file: terraform-plan.plan
+          requires:
+            - circleci-orbs/setup_deploy_params
+            - dockerbuild
+      - circleci-orbs/terraform:
+          <<: *not_main
+          context: pocket
+          name: check_terraform
+          deploy: false
+          copy_workspace: true
+          terraform_workspace: Dev
+          terraform_modules_dir: .aws
+          global_vars_file: global.dev.tfvars
+          state_file: terraform-plan.plan
+          requires:
+            - build
+      - circleci-orbs/sentry_release_notification:
+          <<: *only_main
+          context: pocket
+          sentry_project_name: fUPDATEME
+          repository_name: UPDATEME
+          requires:
+            - deploy_terraform
