@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Pocket/backend-typescript-template#readme",
   "dependencies": {
-    "@sentry/node": "^5.18.1"
+    "@sentry/node": "^5.19.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",
