@@ -24,11 +24,11 @@
   },
   "homepage": "https://github.com/Pocket/backend-typescript-template#readme",
   "dependencies": {
-    "@sentry/node": "^5.19.1"
+    "@sentry/node": "^5.19.2"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",
-    "@types/mocha": "^7.0.2",
+    "@types/mocha": "^8.0.0",
     "@types/node": "^14.0.20",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
