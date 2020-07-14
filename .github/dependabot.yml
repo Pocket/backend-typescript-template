@@ -22,4 +22,3 @@ updates:
       interval: 'weekly'
     commit-message:
       prefix: '[DEPBOT-0101]'
-      
