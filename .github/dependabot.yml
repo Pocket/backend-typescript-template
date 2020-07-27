@@ -9,7 +9,7 @@ updates:
     directory: '/'
     # Check the npm registry for updates every day (weekdays)
     schedule:
-      interval: 'daily'
+      interval: 'monthly'
     commit-message:
       prefix: '[DEPBOT-0101]'
 
@@ -19,6 +19,22 @@ updates:
     directory: '/'
     # Check for updates once a week
     schedule:
-      interval: 'weekly'
+      interval: 'monthly'
     commit-message:
-      prefix: '[DEPBOT-0101]'
+      prefix: '[DEPBOT-0102]'
+
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+    commit-message:
+      prefix: '[DEPBOT-0103]'
+
+  # Maintain dependencies for Terraform
+  - package-ecosystem: 'terraform'
+    directory: '.aws'
+    schedule:
+      interval: 'monthly'
+    commit-message:
+      prefix: '[DEPBOT-0104]'
