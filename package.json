@@ -38,7 +38,7 @@
     "eslint-plugin-prettier": "^3.3.0",
     "mocha": "^8.2.1",
     "mocha-junit-reporter": "^2.0.0",
-    "nock": "^13.0.5",
+    "nock": "^13.0.7",
     "nodemon": "^2.0.6",
     "prettier": "^2.2.1",
     "standard": "^16.0.3",
