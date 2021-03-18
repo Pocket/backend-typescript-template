@@ -27,7 +27,7 @@
     "@sentry/node": "^6.2.2"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.14",
+    "@types/chai": "^4.2.15",
     "@types/mocha": "^8.2.0",
     "@types/node": "^14.14.35",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
