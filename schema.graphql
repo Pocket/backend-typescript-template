@@ -1,0 +1,37 @@
+"A String representing a date in the format of `yyyy-MM-dd HH:mm:ss`"
+scalar DateString
+
+"A String in the format of a url."
+scalar Url
+
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
+
+"""
+We need to manually implement cacheControl in the schema for now
+https://stackoverflow.com/questions/52922080/how-to-implement-caching-on-apollo-server-hapi-graphql
+https://github.com/apollographql/federation/issues/356
+"""
+directive @cacheControl(
+  maxAge: Int
+  scope: CacheControlScope
+) on FIELD_DEFINITION | OBJECT | INTERFACE
+
+"""
+The heart of Pocket
+A url and meta data related to it.
+"""
+type Acme @cacheControl(maxAge: 86400) {
+  "A server generated unique id for this Acme."
+  id: ID!
+}
+
+type Query {
+  """
+  Gets an item by an item ID
+  This could return null if the legacy parser service hasn't seen the item yet
+  """
+  getAcme(id: ID!): Acme @cacheControl(maxAge: 86400)
+}
