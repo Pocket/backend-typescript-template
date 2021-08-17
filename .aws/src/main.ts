@@ -88,8 +88,12 @@ class Acme extends TerraformStack {
       containerConfigs: [
         {
           name: 'app',
-          hostPort: 4001,
-          containerPort: 4001,
+          portMappings: [
+            {
+              containerPort: 4001,
+              hostPort: 4001,
+            },
+          ],
           envVars: [
             {
               name: 'ENVIRONMENT',
