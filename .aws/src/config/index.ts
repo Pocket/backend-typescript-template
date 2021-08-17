@@ -1,4 +1,4 @@
-const name = 'Acme';
+const name = 'Acme'; //todo: change the service name
 let environment;
 let domain;
 let graphqlVariant;
@@ -7,13 +7,13 @@ let cacheSize;
 
 if (process.env.NODE_ENV === 'development') {
   environment = 'Dev';
-  domain = 'acme.getpocket.dev';
+  domain = `${name}.getpocket.dev`;
   graphqlVariant = 'development';
   cacheNodes = 2;
   cacheSize = 'cache.t2.micro';
 } else {
   environment = 'Prod';
-  domain = 'acme.readitlater.com';
+  domain = `${name}.readitlater.com`;
   graphqlVariant = 'current';
   //Arbitrary size and count for cache. No logic was used in deciding this.
   cacheNodes = 2;
@@ -24,7 +24,7 @@ export const config = {
   name,
   prefix: `${name}-${environment}`,
   circleCIPrefix: `/${name}/CircleCI/${environment}`,
-  shortName: 'ACME',
+  shortName: 'ACME', //change to your service name, limit to 6 characters
   environment,
   domain,
   cacheNodes,

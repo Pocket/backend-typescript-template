@@ -21,6 +21,7 @@ import {
 } from '@pocket/terraform-modules';
 import { PagerdutyProvider } from '../.gen/providers/pagerduty';
 
+//todo: change class name to your service name
 class Acme extends TerraformStack {
   constructor(scope: Construct, name: string) {
     super(scope, name);
