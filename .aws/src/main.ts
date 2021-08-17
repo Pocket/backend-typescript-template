@@ -245,4 +245,5 @@ class Acme extends TerraformStack {
 
 const app = new App();
 new Acme(app, 'acme');
+// TODO: Fix the terraform version. @See https://github.com/Pocket/recommendation-api/pull/333
 app.synth();
