@@ -128,9 +128,13 @@ class Acme extends TerraformStack {
         {
           name: 'xray-daemon',
           containerImage: 'amazon/aws-xray-daemon',
-          hostPort: 2000,
-          containerPort: 2000,
-          protocol: 'udp',
+          portMappings: [
+            {
+              containerPort: 2000,
+              hostPort: 2000,
+              protocol: 'udp',
+            },
+          ],
           command: ['--region', 'us-east-1', '--local-mode'],
         },
       ],

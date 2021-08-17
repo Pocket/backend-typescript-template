@@ -27,6 +27,8 @@ export const config = {
   shortName: 'ACME',
   environment,
   domain,
+  cacheNodes,
+  cacheSize,
   tags: {
     service: name,
     environment,
