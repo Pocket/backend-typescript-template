@@ -228,10 +228,10 @@ workflows:
           context: pocket
           name: test_specs
 
-      - test_integrations:
-          <<: *not_main
-          context: pocket
-          name: test_integrations
+      # - test_integrations:
+      #     <<: *not_main
+      #     context: pocket
+      #     name: test_integrations
       
       - apollo
 
