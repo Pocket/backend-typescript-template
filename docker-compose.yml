@@ -27,6 +27,6 @@ services:
       - AWS_XRAY_LOG_LEVEL=silent
       - AWS_XRAY_CONTEXT_MISSING=LOG_ERROR
     #command: './.docker/startup.sh'
-    command: "bash -c 'cd /app && npm i && npm run start:dev'"
+    command: "bash -c 'cd /app && npm ci && npm run start:dev'"
     depends_on:
       - mysql
