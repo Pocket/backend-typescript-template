@@ -31,6 +31,7 @@ Sentry.init({
   debug: config.sentry.environment == 'development',
 });
 
+// TODO: Decide whether the example caching strategy below suits your project.
 const cache = getRedisCache();
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
@@ -43,7 +44,7 @@ const server = new ApolloServer({
   // This allows us to cache resolver decisions
   persistedQueries: {
     cache,
-    ttl: 300, // 5 minutes
+    ttl: 300, // caching expiration time in seconds
   },
   //The cache that Apollo should use for all of its responses
   //https://www.apollographql.com/docs/apollo-server/data/data-sources/#using-memcachedredis-as-a-cache-storage-backend
@@ -63,6 +64,7 @@ const server = new ApolloServer({
     sentryPlugin,
   ],
   context: {
+    // Example request context. This context is accessible to all resolvers.
     // dataLoaders: {
     //   itemIdLoader: itemIdLoader,
     //   itemUrlLoader: itemUrlLoader,
