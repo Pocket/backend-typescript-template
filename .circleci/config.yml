@@ -1,3 +1,5 @@
+#todo: change all string with `acme` to your service name
+
 version: 2.1
 
 orbs:
@@ -59,14 +61,15 @@ jobs:
             sudo npm install -g apollo
       - run:
           name: check service
-          command: apollo service:check --graph=pocket-client-api --localSchemaFile=schema.graphql --serviceName=parser --variant=current
+          #todo: change the service name
+          command: apollo service:check --graph=pocket-client-api --localSchemaFile=schema.graphql --serviceName=acme --variant=current
       - when:
           condition:
             equal: [main, << pipeline.git.branch >>]
           steps:
             - run:
                 name: push service
-                command: apollo service:push --graph=pocket-client-api --localSchemaFile=schema.graphql --serviceURL=https://acme.readitlater.com/ --serviceName=parser --variant=current
+                command: apollo service:push --graph=pocket-client-api --localSchemaFile=schema.graphql --serviceURL=https://acme.readitlater.com/ --serviceName=acme --variant=current
 
   test_integrations:
     description: Run integration tests against external services, e.g. MySQL
@@ -323,8 +326,8 @@ workflows:
           <<: *only_main
           name: sentry-release-notification-prod
           context: pocket
-          repository_name: Pocket/parser-graphql-wrapper
-          sentry_project_name: parser-graphql-wrapper
+          repository_name: Pocket/backend-typescript-template #todo: change to your repo name
+          sentry_project_name: backend-typescript-template  #todo: change to your repo name
           sentry_env: production
           sentry_org: pocket
           workspace-path: /tmp/workspace
@@ -336,8 +339,8 @@ workflows:
           <<: *only_dev
           name: sentry-release-notification-dev
           context: pocket
-          repository_name: Pocket/parser-graphql-wrapper
-          sentry_project_name: parser-graphql-wrapper
+          repository_name: Pocket/backend-typescript-template #todo: change to your repo name
+          sentry_project_name: backend-typescript-template #todo: change to your repo name
           sentry_env: development
           sentry_org: pocket
           workspace-path: /tmp/workspace
