@@ -47,6 +47,30 @@ only_dev: &only_dev
         - dev
 
 jobs:
+  apollo:
+    docker:
+      - image: circleci/node:16
+    steps:
+      - checkout
+      - run:
+          name: install rover
+          command: |
+            # download and install Rover
+            curl -sSL https://rover.apollo.dev/nix/v0.1.0 | sh
+
+            # This allows the PATH changes to persist to the next `run` step
+            echo 'export PATH=$HOME/.rover/bin:$PATH' >> $BASH_ENV
+      - run:
+          name: check service
+          command: rover subgraph check pocket-client-api@current --schema ./schema.graphql --name=<UPDATE_ME>
+      - when:
+          condition:
+            equal: [main, << pipeline.git.branch >>]
+          steps:
+            - run:
+                name: push service
+                # TODO: Update service name in apollo
+                command: rover subgraph publish pocket-client-api@current --schema ./schema.graphql --routing-url https://<UPDATE_ME>.readitlater.com/ --name=<UPDATE_ME>
   build:
     docker:
       - image: circleci/node:16
@@ -208,6 +232,8 @@ workflows:
           <<: *not_main
           context: pocket
           name: test_integrations
+      
+      - apollo
 
       - build:
           context: pocket
