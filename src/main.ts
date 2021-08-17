@@ -12,6 +12,7 @@ import xrayExpress from 'aws-xray-sdk-express';
 import express from 'express';
 import https from 'https';
 import { getRedisCache } from './cache';
+import { ApolloServerPluginCacheControl } from 'apollo-server-core';
 
 //Set XRAY to just log if the context is missing instead of a runtime error
 AWSXRay.setContextMissingStrategy('LOG_ERROR');
@@ -37,9 +38,6 @@ const cache = getRedisCache();
 // definition and your set of resolvers.
 const server = new ApolloServer({
   schema: buildFederatedSchema([{ typeDefs, resolvers }]),
-  // Set a default cache control of 0 seconds so it respects the individual set cache controls on the schema
-  // With this set to 0 it will not cache by default
-  cacheControl: { defaultMaxAge: 0 },
   // Caches the queries that apollo clients can send via a hashed get request
   // This allows us to cache resolver decisions
   persistedQueries: {
@@ -62,6 +60,9 @@ const server = new ApolloServer({
           : null,
     }),
     sentryPlugin,
+    // Set a default cache control of 0 seconds so it respects the individual set cache controls on the schema
+    // With this set to 0 it will not cache by default
+    ApolloServerPluginCacheControl({ defaultMaxAge: 0 }),
   ],
   context: {
     // Example request context. This context is accessible to all resolvers.
