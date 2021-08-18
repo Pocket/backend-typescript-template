@@ -55,8 +55,8 @@ const server = new ApolloServer({
       //https://www.apollographql.com/docs/apollo-server/performance/caching/#saving-full-responses-to-a-cache
       //The user id is added to the request header by the apollo gateway (client api)
       sessionId: (requestContext: GraphQLRequestContext) =>
-        requestContext.request.http.headers.has('userId')
-          ? requestContext.request.http.headers.get('userId')
+        requestContext?.request?.http?.headers?.has('userId')
+          ? requestContext?.request?.http?.headers?.get('userId')
           : null,
     }),
     sentryPlugin,
