@@ -2,7 +2,7 @@
 
 ### For all services:
 
-* Ensure project is configured in [pocket/shared-infrastructure](https://github.com/Pocket/shared-infrastructure/). This sets up CodePipeline and project environment for CircleCI.
+* Ensure project is configured in [pocket/shared-infrastructure](https://github.com/Pocket/shared-infrastructure/). This sets up CodeBuild, Terraform workspace, the user, and the project environment for CircleCI.
 
 ### For non-graphql services:
 * Delete `graphql-config.yml`
