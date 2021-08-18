@@ -56,7 +56,3 @@ services:
       - localstack
       - snowplow
 
-  snowplow:
-    image: pocket/snowplow-micro:prod
-    ports:
-      - '9090:9090'
