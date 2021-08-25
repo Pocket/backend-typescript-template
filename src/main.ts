@@ -14,6 +14,9 @@ import https from 'https';
 import { getRedisCache } from './cache';
 import { ApolloServerPluginCacheControl } from 'apollo-server-core';
 
+const serviceName = 'Acme';
+//todo: change service name
+
 //Set XRAY to just log if the context is missing instead of a runtime error
 AWSXRay.setContextMissingStrategy('LOG_ERROR');
 
@@ -55,8 +58,8 @@ const server = new ApolloServer({
       //https://www.apollographql.com/docs/apollo-server/performance/caching/#saving-full-responses-to-a-cache
       //The user id is added to the request header by the apollo gateway (client api)
       sessionId: (requestContext: GraphQLRequestContext) =>
-        requestContext.request.http.headers.has('userId')
-          ? requestContext.request.http.headers.get('userId')
+        requestContext?.request?.http?.headers?.has('userId')
+          ? requestContext?.request?.http?.headers?.get('userId')
           : null,
     }),
     sentryPlugin,
@@ -79,7 +82,7 @@ const server = new ApolloServer({
 const app = express();
 
 //If there is no host header (really there always should be..) then use parser-wrapper as the name
-app.use(xrayExpress.openSegment('acme'));
+app.use(xrayExpress.openSegment(serviceName));
 
 //Set XRay to use the host header to open its segment name.
 AWSXRay.middleware.enableDynamicNaming('*');

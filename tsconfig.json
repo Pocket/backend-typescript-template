@@ -18,6 +18,7 @@
     "sourceMap": true,
     "inlineSources": true,
     "sourceRoot": "/",
+    "strictNullChecks": true,
     "declaration": true
   },
   "exclude": ["node_modules"],

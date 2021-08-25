@@ -21,6 +21,7 @@ import {
 } from '@pocket/terraform-modules';
 import { PagerdutyProvider } from '../.gen/providers/pagerduty';
 
+//todo: change class name to your service name
 class Acme extends TerraformStack {
   constructor(scope: Construct, name: string) {
     super(scope, name);
@@ -65,6 +66,10 @@ class Acme extends TerraformStack {
         ),
       },
     });
+
+    const criticalPagerDutyAlarmIfProd = config.environment === 'Prod'
+      ? [pagerDuty.snsCriticalAlarmTopic.arn]
+      : [pagerDuty.snsNonCriticalAlarmTopic.arn];
 
     const region = new DataAwsRegion(this, 'region');
     const caller = new DataAwsCallerIdentity(this, 'caller');
@@ -194,17 +199,16 @@ class Acme extends TerraformStack {
         targetMaxCapacity: 10,
       },
       alarms: {
-        //TODO: When we start using this more we will change from non-critical to critical
         http5xxError: {
           threshold: 10,
           evaluationPeriods: 2,
           period: 600,
-          actions: [pagerDuty.snsNonCriticalAlarmTopic.arn],
+          actions: criticalPagerDutyAlarmIfProd,
         },
         httpLatency: {
           evaluationPeriods: 2,
           threshold: 500,
-          actions: [pagerDuty.snsNonCriticalAlarmTopic.arn],
+          actions: criticalPagerDutyAlarmIfProd,
         },
         httpRequestCount: {
           threshold: 5000,

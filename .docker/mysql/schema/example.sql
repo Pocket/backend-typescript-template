@@ -8,3 +8,4 @@ CREATE TABLE `example` (
   PRIMARY KEY (`id`),
 );
 
+--todo: add your sql db queries here
