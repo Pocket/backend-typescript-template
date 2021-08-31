@@ -88,7 +88,9 @@ app.use(xrayExpress.openSegment(serviceName));
 AWSXRay.middleware.enableDynamicNaming('*');
 
 //Apply the GraphQL middleware into the express app
-server.applyMiddleware({ app, path: '/' });
+server.start().then(() => {
+  server.applyMiddleware({ app, path: '/' });
+});
 
 //Make sure the express app has the xray close segment handler
 app.use(xrayExpress.closeSegment());
