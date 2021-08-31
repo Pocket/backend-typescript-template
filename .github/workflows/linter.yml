@@ -12,12 +12,10 @@
     #
     
     #############################
-    # Start the job on all push #
+    # Start the job on all pull requests #
     #############################
     on:
-      push:
-        branches-ignore:
-          - 'main'
+      pull_request_target:
     
     ###############
     # Set the Job #
