@@ -30,7 +30,6 @@ node_modules
 tmp
 .DS_Store
 /test-results.xml
-.vscode
 
 # Build files
 dist
