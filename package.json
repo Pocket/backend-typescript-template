@@ -29,7 +29,7 @@
     "@apollo/federation": "^0.32.0",
     "@pocket-tools/apollo-utils": "^1.1.0",
     "@sentry/node": "^6.12.0",
-    "@sentry/tracing": "^6.11.0",
+    "@sentry/tracing": "^6.13.0",
     "apollo-client": "^2.6.10",
     "apollo-datasource-rest": "^3.2.0",
     "apollo-link": "^1.2.14",
