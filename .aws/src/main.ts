@@ -129,6 +129,11 @@ class Acme extends TerraformStack {
    * @private
    */
   private createPagerDuty() {
+    // don't create any pagerduty resources if in dev
+    if (config.isDev) {
+      return undefined;
+    }
+
     const incidentManagement = new DataTerraformRemoteState(
       this,
       'incident_management',
@@ -279,22 +284,12 @@ class Acme extends TerraformStack {
       },
       alarms: {
         //TODO: When you start using the service add the pagerduty arns as an action `pagerDuty.snsNonCriticalAlarmTopic.arn`
-        http5xxError: {
-          threshold: 10,
-          evaluationPeriods: 2,
-          period: 600,
-          actions: []
+        http5xxErrorPercentage: {
+          threshold: 25,
+          evaluationPeriods: 4,
+          period: 300,
+          actions: config.isDev ? [] : []
         },
-        httpLatency: {
-          evaluationPeriods: 2,
-          threshold: 500,
-          actions: []
-        },
-        httpRequestCount: {
-          threshold: 5000,
-          evaluationPeriods: 2,
-          actions: []
-        }
       }
     });
   }

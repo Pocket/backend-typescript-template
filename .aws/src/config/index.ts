@@ -17,6 +17,7 @@ const cacheSize = isDev ? 'cache.t2.micro' : 'cache.t3.medium';
 
 export const config = {
   name,
+  isDev,
   prefix: `${name}-${environment}`,
   circleCIPrefix: `/${name}/CircleCI/${environment}`,
   shortName: 'ACME', //change to your service name, limit to 6 characters, match shared-infrastructure short name
