@@ -22,5 +22,3 @@ jobs:
         working-directory: ${{env.working-directory}}
       - run: npm run build:dev
         working-directory: ${{env.working-directory}}
-      - run: cd cdktf.out/stacks/acme && terraform init && terraform validate
-        working-directory: ${{env.working-directory}}
