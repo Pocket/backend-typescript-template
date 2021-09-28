@@ -31,12 +31,11 @@ class Acme extends TerraformStack {
 
     new PagerdutyProvider(this, 'pagerduty_provider', { token: undefined });
 
-    // Uncomment this for live code
-    // new RemoteBackend(this, {
-    //   hostname: 'app.terraform.io',
-    //   organization: 'Pocket',
-    //   workspaces: [{ prefix: `${config.name}-` }],
-    // });
+    new RemoteBackend(this, {
+      hostname: 'app.terraform.io',
+      organization: 'Pocket',
+      workspaces: [{ prefix: `${config.name}-` }],
+    });
 
     const region = new DataAwsRegion(this, 'region');
     const caller = new DataAwsCallerIdentity(this, 'caller');
