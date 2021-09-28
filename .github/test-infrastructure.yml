@@ -1,0 +1,26 @@
+# Delete this when you generate a repository from this template
+name: Build Infrastructure
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./.aws
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v1.3.2
+        with:
+          terraform_version: 0.13.5
+          terraform_wrapper: false
+      - uses: actions/setup-node@v2.4.0
+        with:
+          node-version: '12.x'
+      - run: npm ci
+        working-directory: ${{env.working-directory}}
+      - run: npm run build:dev
+        working-directory: ${{env.working-directory}}
+      - run: cd cdktf.out/stacks/acme && terraform init && terraform validate
+        working-directory: ${{env.working-directory}}
