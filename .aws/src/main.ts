@@ -3,21 +3,22 @@ import {
   App,
   DataTerraformRemoteState,
   RemoteBackend,
-  TerraformStack
+  TerraformStack,
 } from 'cdktf';
 import {
   AwsProvider,
   DataAwsCallerIdentity,
   DataAwsKmsAlias,
   DataAwsRegion,
-  DataAwsSnsTopic
+  DataAwsSnsTopic,
 } from '@cdktf/provider-aws';
 import { config } from './config';
 import {
   ApplicationRedis,
-  PocketALBApplication, PocketECSCodePipeline,
+  PocketALBApplication,
+  PocketECSCodePipeline,
   PocketPagerDuty,
-  PocketVPC
+  PocketVPC,
 } from '@pocket-tools/terraform-modules';
 import { PagerdutyProvider } from '@cdktf/provider-pagerduty';
 
@@ -33,10 +34,9 @@ class Acme extends TerraformStack {
     new RemoteBackend(this, {
       hostname: 'app.terraform.io',
       organization: 'Pocket',
-      workspaces: [{ prefix: `${config.name}-` }]
+      workspaces: [{ prefix: `${config.name}-` }],
     });
 
-    const pocketVpc = new PocketVPC(this, 'pocket-vpc');
     const region = new DataAwsRegion(this, 'region');
     const caller = new DataAwsCallerIdentity(this, 'caller');
     const cache = Acme.createElasticache(this);
@@ -47,7 +47,7 @@ class Acme extends TerraformStack {
       snsTopic: this.getCodeDeploySnsTopic(),
       region,
       caller,
-      cache
+      cache,
     });
 
     this.createApplicationCodePipeline(pocketApp);
@@ -58,9 +58,10 @@ class Acme extends TerraformStack {
    * @param scope
    * @private
    */
-  private static createElasticache(
-    scope: Construct
-  ): { primaryEndpoint: string; readerEndpoint: string } {
+  private static createElasticache(scope: Construct): {
+    primaryEndpoint: string;
+    readerEndpoint: string;
+  } {
     const pocketVPC = new PocketVPC(scope, 'pocket-vpc');
 
     const elasticache = new ApplicationRedis(scope, 'redis', {
@@ -72,19 +73,19 @@ class Acme extends TerraformStack {
       allowedIngressSecurityGroupIds: undefined,
       node: {
         count: config.cacheNodes,
-        size: config.cacheSize
+        size: config.cacheSize,
       },
       subnetIds: pocketVPC.privateSubnetIds,
       tags: config.tags,
       vpcId: pocketVPC.vpc.id,
-      prefix: config.prefix
+      prefix: config.prefix,
     });
 
     return {
       primaryEndpoint:
-      elasticache.elasticacheReplicationGroup.primaryEndpointAddress,
+        elasticache.elasticacheReplicationGroup.primaryEndpointAddress,
       readerEndpoint:
-      elasticache.elasticacheReplicationGroup.readerEndpointAddress
+        elasticache.elasticacheReplicationGroup.readerEndpointAddress,
     };
   }
 
@@ -94,7 +95,7 @@ class Acme extends TerraformStack {
    */
   private getCodeDeploySnsTopic() {
     return new DataAwsSnsTopic(this, 'backend_notifications', {
-      name: `Backend-${config.environment}-ChatBot`
+      name: `Backend-${config.environment}-ChatBot`,
     });
   }
 
@@ -104,7 +105,7 @@ class Acme extends TerraformStack {
    */
   private getSecretsManagerKmsAlias() {
     return new DataAwsKmsAlias(this, 'kms_alias', {
-      name: 'alias/aws/secretsmanager'
+      name: 'alias/aws/secretsmanager',
     });
   }
 
@@ -119,8 +120,8 @@ class Acme extends TerraformStack {
       source: {
         codeStarConnectionArn: config.codePipeline.githubConnectionArn,
         repository: config.codePipeline.repository,
-        branchName: config.codePipeline.branch
-      }
+        branchName: config.codePipeline.branch,
+      },
     });
   }
 
@@ -140,8 +141,8 @@ class Acme extends TerraformStack {
       {
         organization: 'Pocket',
         workspaces: {
-          name: 'incident-management'
-        }
+          name: 'incident-management',
+        },
       }
     );
 
@@ -153,8 +154,8 @@ class Acme extends TerraformStack {
         ),
         nonCriticalEscalationPolicyId: incidentManagement.get(
           'policy_backend_non_critical_id'
-        )
-      }
+        ),
+      },
     });
   }
 
@@ -166,8 +167,14 @@ class Acme extends TerraformStack {
     snsTopic: DataAwsSnsTopic;
     cache: { primaryEndpoint: string; readerEndpoint: string };
   }): PocketALBApplication {
-    const { pagerDuty, region, caller, secretsManagerKmsAlias, snsTopic, cache } =
-      dependencies;
+    const {
+      pagerDuty,
+      region,
+      caller,
+      secretsManagerKmsAlias,
+      snsTopic,
+      cache,
+    } = dependencies;
 
     return new PocketALBApplication(this, 'application', {
       internal: true,
@@ -182,34 +189,34 @@ class Acme extends TerraformStack {
           portMappings: [
             {
               hostPort: 4005,
-              containerPort: 4005
-            }
+              containerPort: 4005,
+            },
           ],
           healthCheck: config.healthCheck,
           envVars: [
             {
               name: 'NODE_ENV',
-              value: process.env.NODE_ENV
+              value: process.env.NODE_ENV,
             },
             {
               name: 'ENVIRONMENT',
-              value: process.env.NODE_ENV // this gives us a nice lowercase production and development
+              value: process.env.NODE_ENV, // this gives us a nice lowercase production and development
             },
             {
               name: 'REDIS_PRIMARY_ENDPOINT',
-              value: cache.primaryEndpoint
+              value: cache.primaryEndpoint,
             },
             {
               name: 'REDIS_READER_ENDPOINT',
-              value: cache.readerEndpoint
-            }
+              value: cache.readerEndpoint,
+            },
           ],
           secretEnvVars: [
             {
               name: 'SENTRY_DSN',
-              valueFrom: `arn:aws:ssm:${region.name}:${caller.accountId}:parameter/${config.name}/${config.environment}/SENTRY_DSN`
+              valueFrom: `arn:aws:ssm:${region.name}:${caller.accountId}:parameter/${config.name}/${config.environment}/SENTRY_DSN`,
             },
-          ]
+          ],
         },
         {
           name: 'xray-daemon',
@@ -219,21 +226,21 @@ class Acme extends TerraformStack {
             {
               hostPort: 2000,
               containerPort: 2000,
-              protocol: 'udp'
-            }
+              protocol: 'udp',
+            },
           ],
-          command: ['--region', 'us-east-1', '--local-mode']
-        }
+          command: ['--region', 'us-east-1', '--local-mode'],
+        },
       ],
       codeDeploy: {
         useCodeDeploy: true,
         useCodePipeline: true,
-        snsNotificationTopicArn: snsTopic.arn
+        snsNotificationTopicArn: snsTopic.arn,
       },
       exposedContainer: {
         name: 'app',
         port: 4001,
-        healthCheckPath: '/.well-known/apollo/server-health'
+        healthCheckPath: '/.well-known/apollo/server-health',
       },
       ecsIamConfig: {
         prefix: config.prefix,
@@ -248,19 +255,19 @@ class Acme extends TerraformStack {
               `arn:aws:secretsmanager:${region.name}:${caller.accountId}:secret:${config.name}/${config.environment}`,
               `arn:aws:secretsmanager:${region.name}:${caller.accountId}:secret:${config.name}/${config.environment}/*`,
               `arn:aws:secretsmanager:${region.name}:${caller.accountId}:secret:${config.prefix}`,
-              `arn:aws:secretsmanager:${region.name}:${caller.accountId}:secret:${config.prefix}/*`
+              `arn:aws:secretsmanager:${region.name}:${caller.accountId}:secret:${config.prefix}/*`,
             ],
-            effect: 'Allow'
+            effect: 'Allow',
           },
           //This policy could probably go in the shared module in the future.
           {
             actions: ['ssm:GetParameter*'],
             resources: [
               `arn:aws:ssm:${region.name}:${caller.accountId}:parameter/${config.name}/${config.environment}`,
-              `arn:aws:ssm:${region.name}:${caller.accountId}:parameter/${config.name}/${config.environment}/*`
+              `arn:aws:ssm:${region.name}:${caller.accountId}:parameter/${config.name}/${config.environment}/*`,
             ],
-            effect: 'Allow'
-          }
+            effect: 'Allow',
+          },
         ],
         taskRolePolicyStatements: [
           {
@@ -269,18 +276,18 @@ class Acme extends TerraformStack {
               'xray:PutTelemetryRecords',
               'xray:GetSamplingRules',
               'xray:GetSamplingTargets',
-              'xray:GetSamplingStatisticSummaries'
+              'xray:GetSamplingStatisticSummaries',
             ],
             resources: ['*'],
-            effect: 'Allow'
-          }
+            effect: 'Allow',
+          },
         ],
         taskExecutionDefaultAttachmentArn:
-          'arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy'
+          'arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy',
       },
       autoscalingConfig: {
         targetMinCapacity: 2,
-        targetMaxCapacity: 10
+        targetMaxCapacity: 10,
       },
       alarms: {
         //TODO: When you start using the service add the pagerduty arns as an action `pagerDuty.snsNonCriticalAlarmTopic.arn`
@@ -289,12 +296,10 @@ class Acme extends TerraformStack {
           evaluationPeriods: 4,
           period: 300,
           actions: config.isDev ? [] : []
-        },
-      }
+        }
+      },
     });
   }
-
-
 }
 
 const app = new App();
