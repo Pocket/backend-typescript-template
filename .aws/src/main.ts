@@ -37,7 +37,6 @@ class Acme extends TerraformStack {
       workspaces: [{ prefix: `${config.name}-` }],
     });
 
-    const pocketVpc = new PocketVPC(this, 'pocket-vpc');
     const region = new DataAwsRegion(this, 'region');
     const caller = new DataAwsCallerIdentity(this, 'caller');
     const cache = Acme.createElasticache(this);
