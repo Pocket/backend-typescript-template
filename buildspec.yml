@@ -35,7 +35,6 @@ phases:
 
   pre_build:
     commands:
-      - echo $CODEBUILD_WEBHOOK_HEAD_REF
       - echo Setting Up Terraform Token
       - rc="credentials \"app.terraform.io\" { "
       - rc="${rc} token=\"$TERRAFORM_TOKEN\" "
