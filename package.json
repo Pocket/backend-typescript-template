@@ -28,7 +28,7 @@
   "dependencies": {
     "@apollo/federation": "^0.33.0",
     "@pocket-tools/apollo-utils": "^1.1.0",
-    "@sentry/node": "^6.13.2",
+    "@sentry/node": "^6.13.3",
     "@sentry/tracing": "^6.13.3",
     "apollo-client": "^2.6.10",
     "apollo-datasource-rest": "^3.2.0",
