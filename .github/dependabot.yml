@@ -12,7 +12,11 @@ updates:
       time: '09:00'
       timezone: 'America/Los_Angeles'
     commit-message:
-      prefix: '[DEPBOT-0101]'
+      #Packaged dependencies (release)
+      prefix: fix
+      #Dev dependencies prefix (no release)
+      prefix-development: chore
+      include: scope
 
   # Enable version updates for Docker
   - package-ecosystem: 'docker'
@@ -23,7 +27,11 @@ updates:
       time: '09:00'
       timezone: 'America/Los_Angeles'
     commit-message:
-      prefix: '[DEPBOT-0102]'
+      #Packaged dependencies (release)
+      prefix: fix
+      #Dev dependencies prefix (no release)
+      prefix-development: chore
+      include: scope
 
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: 'github-actions'
@@ -33,7 +41,11 @@ updates:
       time: '09:00'
       timezone: 'America/Los_Angeles'
     commit-message:
-      prefix: '[DEPBOT-0103]'
+      #Packaged dependencies (release)
+      prefix: fix
+      #Dev dependencies prefix (no release)
+      prefix-development: chore
+      include: scope
 
   # Maintain dependencies for Terraform
   - package-ecosystem: 'npm'
@@ -43,4 +55,8 @@ updates:
       time: '09:00'
       timezone: 'America/Los_Angeles'
     commit-message:
-      prefix: '[DEPBOT-0104]'
+      #Packaged dependencies (release)
+      prefix: fix
+      #Dev dependencies prefix (no release)
+      prefix-development: chore
+      include: scope
