@@ -21,6 +21,8 @@ import {
   PocketVPC,
 } from '@pocket-tools/terraform-modules';
 import { PagerdutyProvider } from '@cdktf/provider-pagerduty';
+import { LocalProvider } from '@cdktf/provider-local';
+import { NullProvider } from '@cdktf/provider-null';
 
 //todo: change class name to your service name
 class Acme extends TerraformStack {
@@ -28,9 +30,10 @@ class Acme extends TerraformStack {
     super(scope, name);
 
     new AwsProvider(this, 'aws', { region: 'us-east-1' });
-
     new PagerdutyProvider(this, 'pagerduty_provider', { token: undefined });
-
+    new LocalProvider(this, 'local_provider');
+    new NullProvider(this, 'null_provider');
+    
     new RemoteBackend(this, {
       hostname: 'app.terraform.io',
       organization: 'Pocket',
