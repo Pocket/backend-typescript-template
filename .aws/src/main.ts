@@ -223,8 +223,7 @@ class Acme extends TerraformStack {
         },
         {
           name: 'xray-daemon',
-          containerImage: 'amazon/aws-xray-daemon',
-          repositoryCredentialsParam: `arn:aws:secretsmanager:${region.name}:${caller.accountId}:secret:Shared/DockerHub`,
+          containerImage: 'public.ecr.aws/xray/aws-xray-daemon:latest',
           portMappings: [
             {
               hostPort: 2000,
