@@ -4,6 +4,10 @@ export default {
     environment: process.env.NODE_ENV || 'development',
     defaultMaxAge: 86400,
   },
+  // TODO: if you aren't using localstack, you can get rid of the `aws` section
+  aws: {
+    localEndpoint: process.env.AWS_ENDPOINT,
+  }
   // TODO: Update example cache configuration below if necessary.
   redis: {
     primaryEndpoint: process.env.REDIS_PRIMARY_ENDPOINT || 'redis',
