@@ -42,7 +42,7 @@
     "dataloader": "^2.0.0",
     "graphql": "^15.7.2",
     "graphql-anywhere": "^4.2.7",
-    "graphql-tag": "^2.12.5"
+    "graphql-tag": "^2.12.6"
   },
   "devDependencies": {
     "@types/chai": "^4.2.22",
