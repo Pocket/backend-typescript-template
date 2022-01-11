@@ -7,10 +7,9 @@ import {
 } from 'cdktf';
 import {
   AwsProvider,
-  DataAwsCallerIdentity,
-  DataAwsKmsAlias,
-  DataAwsRegion,
-  DataAwsSnsTopic,
+  datasources,
+  kms,
+  sns
 } from '@cdktf/provider-aws';
 import { config } from './config';
 import {
@@ -40,8 +39,8 @@ class Acme extends TerraformStack {
       workspaces: [{ prefix: `${config.name}-` }],
     });
 
-    const region = new DataAwsRegion(this, 'region');
-    const caller = new DataAwsCallerIdentity(this, 'caller');
+    const region = new datasources.DataAwsRegion(this, 'region');
+    const caller = new datasources.DataAwsCallerIdentity(this, 'caller');
     const cache = Acme.createElasticache(this);
 
     const pocketApp = this.createPocketAlbApplication({
@@ -97,7 +96,7 @@ class Acme extends TerraformStack {
    * @private
    */
   private getCodeDeploySnsTopic() {
-    return new DataAwsSnsTopic(this, 'backend_notifications', {
+    return new sns.DataAwsSnsTopic(this, 'backend_notifications', {
       name: `Backend-${config.environment}-ChatBot`,
     });
   }
@@ -107,7 +106,7 @@ class Acme extends TerraformStack {
    * @private
    */
   private getSecretsManagerKmsAlias() {
-    return new DataAwsKmsAlias(this, 'kms_alias', {
+    return new kms.DataAwsKmsAlias(this, 'kms_alias', {
       name: 'alias/aws/secretsmanager',
     });
   }
@@ -164,10 +163,10 @@ class Acme extends TerraformStack {
 
   private createPocketAlbApplication(dependencies: {
     pagerDuty: PocketPagerDuty;
-    region: DataAwsRegion;
-    caller: DataAwsCallerIdentity;
-    secretsManagerKmsAlias: DataAwsKmsAlias;
-    snsTopic: DataAwsSnsTopic;
+    region: datasources.DataAwsRegion;
+    caller: datasources.DataAwsCallerIdentity;
+    secretsManagerKmsAlias: kms.DataAwsKmsAlias;
+    snsTopic: sns.DataAwsSnsTopic;
     cache: { primaryEndpoint: string; readerEndpoint: string };
   }): PocketALBApplication {
     const {
