@@ -6,11 +6,11 @@ export const getRedisCache = () => {
   return new ElasticacheRedis(
     new RedisCache({
       host: config.redis.primaryEndpoint.split(':')[0],
-      port: config.redis.port
+      port: config.redis.port,
     }),
     new RedisCache({
       host: config.redis.readerEndpoint.split(':')[0],
-      port: config.redis.port
+      port: config.redis.port,
     })
   );
 };
