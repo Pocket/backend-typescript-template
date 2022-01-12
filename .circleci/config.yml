@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  aws-ecs: circleci/aws-ecs@2.0.0
-  pocket: pocket/circleci-orbs@1.2.3
+  aws-ecs: circleci/aws-ecs@2.2.1
+  pocket: pocket/circleci-orbs@1.2.4
 
 # Workflow shortcuts
 # You can remove unnecessary shortcuts as applicable
