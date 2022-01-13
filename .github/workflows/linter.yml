@@ -57,4 +57,8 @@ jobs:
           LINTER_RULES_PATH: /
           VALIDATE_ALL_CODEBASE: true
           TYPESCRIPT_ES_CONFIG_FILE: .eslintrc.js
-          VALIDATE_TYPESCRIPT_STANDARD: false
+          VALIDATE_TERRAFORM: true
+          VALIDATE_JAVASCRIPT_ES: true
+          VALIDATE_MD: true
+          VALIDATE_TYPESCRIPT_ES: true
+          VALIDATE_YAML: true
