@@ -28,7 +28,7 @@
   "dependencies": {
     "@apollo/federation": "^0.33.9",
     "@pocket-tools/apollo-utils": "^2.2.0",
-    "@sentry/node": "^6.16.1",
+    "@sentry/node": "^6.17.2",
     "@sentry/tracing": "^6.17.1",
     "apollo-client": "^2.6.10",
     "apollo-datasource-rest": "^3.5.1",
@@ -49,7 +49,7 @@
     "@types/jest": "^27.4.0",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
-    "chai": "^4.3.4",
+    "chai": "^4.3.6",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
