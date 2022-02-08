@@ -2,6 +2,7 @@ version: '3.1'
 services:
   mysql:
     image: mysql:5.6
+    platform: linux/amd64
     ports:
       - '3306:3306'
     volumes:
@@ -16,7 +17,8 @@ services:
       - '6379:6379'
 
   app:
-    image: node:15
+    image: node:16-slim@sha256:590fb448ee7c2acc777f02e7d4e8639d042d8628bc82c574f4e2c7503725ab9c
+    platform: linux/amd64
     working_dir: /app
     ports:
       - '4001:4001'
