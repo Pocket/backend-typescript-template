@@ -34,7 +34,7 @@
     "apollo-datasource-rest": "^3.5.1",
     "apollo-link": "^1.2.14",
     "apollo-link-rest": "^0.8.0",
-    "apollo-server": "^3.4.1",
+    "apollo-server": "^3.6.2",
     "apollo-server-cache-redis": "^3.3.1",
     "apollo-server-express": "^3.4.1",
     "apollo-server-plugin-response-cache": "^3.3.0",
