@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   mysql:
-    image: mysql:5.6
+    image: mysql:5.6@sha256:20575ecebe6216036d25dab5903808211f1e9ba63dc7825ac20cb975e34cfcae
     platform: linux/amd64
     ports:
       - '3306:3306'
@@ -12,7 +12,7 @@ services:
       - TZ=US/Central
 
   redis:
-    image: redis:latest
+    image: redis:latest@sha256:0d9c9aed1eb385336db0bc9b976b6b49774aee3d2b9c2788a0d0d9e239986cb3
     ports:
       - '6379:6379'
 
