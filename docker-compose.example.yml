@@ -22,7 +22,7 @@ services:
       - TZ=UTC
 
   localstack:
-    image: localstack/localstack@sha256:cf2a768419a79b81125dee641171da53da642aaa6fb2f840d387d4ac515b940d
+    image: localstack/localstack@sha256:c3b9fe5079928acd642ed21633d94babc6a135164eea7b70b00f647f28c99c1b
     env_file:
       - .docker/local.env
     ports:
