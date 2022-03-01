@@ -40,7 +40,7 @@ services:
       - HOSTNAME_EXTERNAL=localstack
 
   app:
-    image: node:16-slim@sha256:64dc41bcf5e9048aa1b9a6efe3af68631720e6b76e98f281a77d305e898d3610
+    image: node:16-slim@sha256:69681d2d4a8bd29a956f10fae4403d4736dab91240245311fe3093adcf6412a2
     platform: linux/amd64
     working_dir: /app
     ports:
