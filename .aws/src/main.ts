@@ -5,12 +5,7 @@ import {
   RemoteBackend,
   TerraformStack,
 } from 'cdktf';
-import {
-  AwsProvider,
-  kms,
-  datasources,
-  sns,
-} from '@cdktf/provider-aws';
+import { AwsProvider, kms, datasources, sns } from '@cdktf/provider-aws';
 import { config } from './config';
 import {
   ApplicationRedis,
@@ -33,7 +28,7 @@ class Acme extends TerraformStack {
     new PagerdutyProvider(this, 'pagerduty_provider', { token: undefined });
     new LocalProvider(this, 'local_provider');
     new NullProvider(this, 'null_provider');
-    
+
     new RemoteBackend(this, {
       hostname: 'app.terraform.io',
       organization: 'Pocket',
@@ -171,7 +166,7 @@ class Acme extends TerraformStack {
     cache: { primaryEndpoint: string; readerEndpoint: string };
   }): PocketALBApplication {
     const {
-      pagerDuty,
+      //  pagerDuty, // enable if necessary
       region,
       caller,
       secretsManagerKmsAlias,
@@ -297,8 +292,8 @@ class Acme extends TerraformStack {
           threshold: 25,
           evaluationPeriods: 4,
           period: 300,
-          actions: config.isDev ? [] : []
-        }
+          actions: config.isDev ? [] : [],
+        },
       },
     });
   }
@@ -307,5 +302,5 @@ class Acme extends TerraformStack {
 const app = new App();
 const stack = new Acme(app, 'acme');
 const tfEnvVersion = fs.readFileSync('.terraform-version', 'utf8');
-stack.addOverride("terraform.required_version", tfEnvVersion)
+stack.addOverride('terraform.required_version', tfEnvVersion);
 app.synth();
