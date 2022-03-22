@@ -149,7 +149,8 @@ jobs:
   #         paths:
   #           - ./node_modules
   #     - run:
-  #         # TODO: Update 
+  #         # TODO: Update below - you may be able to remove one or all of the --hosts/--db/--aws options
+  #         # depending on what scripts you have in .circleci/scripts
   #         name: run setup.sh
   #         command: |
   #           export $(egrep -v '^#' .docker/local.env | xargs -0) && ./.circleci/scripts/setup.sh --hosts --db --aws
