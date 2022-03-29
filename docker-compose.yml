@@ -17,7 +17,7 @@ services:
       - '6379:6379'
 
   app:
-    image: node:16-slim@sha256:e9b4f4d85a9dbe9da876bbf0a90e943086c57e33db2f2cb6bccb2863fb1a1e6b
+    image: node:16-slim@sha256:a36638aa765ecd08264d079c1ceb266b463485906adad6bc0faa0cb454e67d5a
     platform: linux/amd64
     working_dir: /app
     ports:
