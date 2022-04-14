@@ -10,7 +10,7 @@ jobs:
     env:
       working-directory: ./.aws
     steps:
-      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # renovate: tag=v2
+      - uses: actions/checkout@f25a3a9f25bd5f4c5d77189cab02ff357b5aedeb # tag=v2
       - uses: hashicorp/setup-terraform@3d8debd658c92063839bc97da5c2427100420dec # renovate: tag=v1.3.2
         with:
           terraform_version: 0.13.5
