@@ -1,4 +1,4 @@
-FROM node:16-slim@sha256:721ae01fabccfc636d3f1a28096af87a6cfd330f2dc1e5e6496484e6abc46549
+FROM node:16-slim@sha256:989dc486196a861f0ccc6c72f2eb7a5d3edb3451f2325bb8e81702ae42ed40e1
 
 WORKDIR /usr/src/app
 
