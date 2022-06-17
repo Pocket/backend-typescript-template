@@ -72,7 +72,7 @@ jobs:
           paths:
             - ./node_modules
       - run:
-          name:
+          name: build
           command: |
             export NODE_ENV=production
             npm run build

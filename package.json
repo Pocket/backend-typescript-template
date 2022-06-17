@@ -26,28 +26,28 @@
   },
   "homepage": "https://github.com/Pocket/backend-typescript-template#readme",
   "dependencies": {
-    "@apollo/federation": "0.36.0",
+    "@apollo/federation": "0.36.1",
     "@pocket-tools/apollo-utils": "2.2.0",
-    "@sentry/node": "6.19.3",
-    "@sentry/tracing": "6.19.3",
-    "apollo-datasource-rest": "3.5.2",
-    "apollo-server": "3.6.7",
+    "@sentry/node": "6.19.7",
+    "@sentry/tracing": "6.19.7",
+    "apollo-datasource-rest": "3.6.0",
+    "apollo-server": "3.8.1",
     "apollo-server-cache-redis": "3.3.1",
-    "apollo-server-express": "3.6.7",
-    "apollo-server-plugin-response-cache": "3.5.2",
-    "aws-xray-sdk-express": "3.3.4",
+    "apollo-server-express": "3.8.1",
+    "apollo-server-plugin-response-cache": "3.6.0",
+    "aws-xray-sdk-express": "3.3.5",
     "dataloader": "2.0.0"
   },
   "devDependencies": {
     "@pocket-tools/eslint-config": "1.1.0",
     "@pocket-tools/tsconfig": "1.0.1",
     "@types/chai": "4.3.1",
-    "@types/jest": "27.4.1",
+    "@types/jest": "27.5.1",
     "chai": "4.3.6",
     "jest": "27.5.1",
     "nock": "13.2.4",
     "nodemon": "2.0.16",
-    "ts-jest": "27.1.5",
+    "ts-jest": "28.0.2",
     "ts-node": "10.7.0"
   }
 }
