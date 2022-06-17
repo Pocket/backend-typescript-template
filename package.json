@@ -27,27 +27,27 @@
   "homepage": "https://github.com/Pocket/backend-typescript-template#readme",
   "dependencies": {
     "@apollo/federation": "0.36.1",
-    "@pocket-tools/apollo-utils": "2.2.0",
-    "@sentry/node": "6.19.7",
-    "@sentry/tracing": "6.19.7",
-    "apollo-datasource-rest": "3.6.0",
-    "apollo-server": "3.8.1",
+    "@pocket-tools/apollo-utils": "2.3.0",
+    "@sentry/node": "7.2.0",
+    "@sentry/tracing": "7.2.0",
+    "apollo-datasource-rest": "3.6.1",
+    "apollo-server": "3.9.0",
     "apollo-server-cache-redis": "3.3.1",
-    "apollo-server-express": "3.8.1",
-    "apollo-server-plugin-response-cache": "3.6.0",
-    "aws-xray-sdk-express": "3.3.5",
+    "apollo-server-express": "3.9.0",
+    "apollo-server-plugin-response-cache": "3.6.1",
+    "aws-xray-sdk-express": "3.3.6",
     "dataloader": "2.0.0"
   },
   "devDependencies": {
-    "@pocket-tools/eslint-config": "1.1.0",
-    "@pocket-tools/tsconfig": "1.0.1",
+    "@pocket-tools/eslint-config": "2.0.0",
+    "@pocket-tools/tsconfig": "2.0.0",
     "@types/chai": "4.3.1",
-    "@types/jest": "27.5.1",
+    "@types/jest": "28.1.2",
     "chai": "4.3.6",
-    "jest": "27.5.1",
+    "jest": "28.1.1",
     "nock": "13.2.6",
     "nodemon": "2.0.16",
-    "ts-jest": "28.0.2",
-    "ts-node": "10.7.0"
+    "ts-jest": "28.0.5",
+    "ts-node": "10.8.1"
   }
 }
