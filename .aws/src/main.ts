@@ -147,12 +147,12 @@ class Acme extends TerraformStack {
     return new PocketPagerDuty(this, 'pagerduty', {
       prefix: config.prefix,
       service: {
-        criticalEscalationPolicyId: incidentManagement.get(
-          'policy_backend_critical_id'
-        ),
-        nonCriticalEscalationPolicyId: incidentManagement.get(
-          'policy_backend_non_critical_id'
-        ),
+        criticalEscalationPolicyId: incidentManagement
+          .get('policy_backend_critical_id')
+          .toString(),
+        nonCriticalEscalationPolicyId: incidentManagement
+          .get('policy_backend_non_critical_id')
+          .toString(),
       },
     });
   }
