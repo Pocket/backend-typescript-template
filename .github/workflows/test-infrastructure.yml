@@ -10,7 +10,7 @@ jobs:
     env:
       working-directory: ./.aws
     steps:
-      - uses: actions/checkout@7884fcad6b5d53d10323aee724dc68d8b9096a2e # tag=v2
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - uses: hashicorp/setup-terraform@17d4c9b8043b238f6f35641cdd8433da1e6f3867 # tag=v2.0.0
         with:
           terraform_version: 0.13.5
