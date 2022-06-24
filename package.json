@@ -42,7 +42,7 @@
     "@pocket-tools/eslint-config": "2.0.0",
     "@pocket-tools/tsconfig": "2.0.1",
     "@types/chai": "4.3.1",
-    "@types/jest": "28.1.2",
+    "@types/jest": "28.1.3",
     "chai": "4.3.6",
     "jest": "28.1.1",
     "nock": "13.2.7",
