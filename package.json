@@ -28,8 +28,8 @@
   "dependencies": {
     "@apollo/federation": "0.36.1",
     "@pocket-tools/apollo-utils": "2.3.1",
-    "@sentry/node": "7.2.0",
-    "@sentry/tracing": "7.2.0",
+    "@sentry/node": "7.7.0",
+    "@sentry/tracing": "7.7.0",
     "apollo-datasource-rest": "3.6.1",
     "apollo-server": "3.9.0",
     "apollo-server-cache-redis": "3.3.1",
