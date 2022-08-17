@@ -28,7 +28,7 @@
   "homepage": "https://github.com/Pocket/backend-typescript-template#readme",
   "dependencies": {
     "@apollo/federation": "0.36.1",
-    "@pocket-tools/apollo-utils": "2.3.1",
+    "@pocket-tools/apollo-utils": "2.3.2",
     "@sentry/node": "7.7.0",
     "@sentry/tracing": "7.7.0",
     "apollo-datasource-rest": "3.6.1",
