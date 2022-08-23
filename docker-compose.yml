@@ -12,7 +12,7 @@ services:
       - TZ=US/Central
 
   redis:
-    image: redis:latest@sha256:9bc34afe08ca30ef179404318cdebe6430ceda35a4ebe4b67d10789b17bdf7c4
+    image: redis:latest@sha256:1fb326e8046c351ac9b9fe10f652c63b9e35b175f208de8637d5883d03a5e9ce
     ports:
       - '6379:6379'
 
