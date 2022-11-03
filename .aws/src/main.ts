@@ -236,6 +236,8 @@ class Acme extends TerraformStack {
       },
       exposedContainer: {
         name: 'app',
+        // If this port is changed after the first deployment, the deployment might fail.
+        // There seems to be a dependency conflict between ALB and the ECS TaskDefinition.
         port: 4001,
         healthCheckPath: '/.well-known/apollo/server-health',
       },
