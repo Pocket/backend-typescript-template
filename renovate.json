@@ -1,5 +1,0 @@
-{
-  "extends": [
-    "github>Pocket/renovate-config"
-  ]
-}
